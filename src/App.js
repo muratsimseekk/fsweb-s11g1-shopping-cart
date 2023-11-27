@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { data } from "./data";
 
@@ -9,9 +9,30 @@ import ShoppingCart from "./components/ShoppingCart";
 import { ProductContext } from "./contexts/ProductContext";
 import { CartContext } from "./contexts/CartContext";
 function App() {
+  const storageKey = 's10d1';
+  const [sonCart,setSonCart] = useState();
   const [products, setProducts] = useState(data);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(baslangicCartGetir(storageKey));
 
+  
+
+  function localStorageWrite(key , data) {
+    localStorage.setItem(key , JSON.stringify(data));
+  }
+  function localStorageRead(key) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+
+  function baslangicCartGetir(key) {
+    const eskiListe = localStorage.getItem(key);
+    if(eskiListe) {
+      return localStorageRead(key);
+    }
+    else{
+      return []
+    }
+  }
+ 
   const addItem = (item) => {
     // verilen itemi sepete ekleyin
     const isIncludes = cart.filter(kart => kart.id ==item.id);
@@ -27,7 +48,15 @@ function App() {
     const remainingCart = cart.filter(item => item.id !== cartItem.id )
     setCart(remainingCart)
   }
+  useEffect(() => {
+    
+    localStorageWrite(storageKey,cart);
+  } , [addItem,removeItem])
   
+  useEffect(() => {
+    localStorageRead(storageKey);
+  },[cart])
+
   
   return (
     <ProductContext.Provider value={{products,addItem}}>
