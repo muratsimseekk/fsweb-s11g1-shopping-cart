@@ -10,7 +10,6 @@ import { ProductContext } from "./contexts/ProductContext";
 import { CartContext } from "./contexts/CartContext";
 function App() {
   const storageKey = 's10d1';
-  const [sonCart,setSonCart] = useState();
   const [products, setProducts] = useState(data);
   const [cart, setCart] = useState(baslangicCartGetir(storageKey));
 
