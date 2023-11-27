@@ -14,7 +14,14 @@ function App() {
 
   const addItem = (item) => {
     // verilen itemi sepete ekleyin
-    setCart([...cart , item])
+    const isIncludes = cart.filter(kart => kart.id ==item.id);
+    if (isIncludes.length !== 0) {
+      setCart([...cart]);
+    }
+    else{
+      setCart([...cart , item])
+    }
+    
   };
   const removeItem = (cartItem) => {
     const remainingCart = cart.filter(item => item.id !== cartItem.id )
