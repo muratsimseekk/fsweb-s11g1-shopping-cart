@@ -20,7 +20,7 @@ const ScProducts = styled.section`
 `;
 
 const Products = () => {
-  const {products , addItem} = useContext(ProductContext)
+  const {products , addItem} = useContext(ProductContext);
   return (
     <ScProducts>
       {products.map((product) => (

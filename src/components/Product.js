@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ScProduct } from "./scParts";
+import { ProductContext } from "../contexts/ProductContext";
 
 const Product = (props) => {
+  const {products,addItem} = useContext(ProductContext);
   return (
     <ScProduct>
       <img src={props.product.image} alt={`${props.product.title} book`} />
