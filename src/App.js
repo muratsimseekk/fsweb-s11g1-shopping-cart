@@ -16,11 +16,15 @@ function App() {
     // verilen itemi sepete ekleyin
     setCart([...cart , item])
   };
+  const removeItem = (cartItem) => {
+    const remainingCart = cart.filter(item => item.id !== cartItem.id )
+    setCart(remainingCart)
+  }
   
   
   return (
     <ProductContext.Provider value={{products,addItem}}>
-      <CartContext.Provider value={{cart}}>
+      <CartContext.Provider value={{cart,removeItem}}>
         <div className="App">
           <Navigation />
 
